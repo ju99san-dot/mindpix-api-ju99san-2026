@@ -1,3 +1,14 @@
+response = sdk.payment().create(payment_data)
+payment = response["response"]
+
+print("RESPOSTA MP:", payment)
+
+pix = payment.get("point_of_interaction", {}).get("transaction_data", {})
+
+return {
+    "pix_copia_cola": pix.get("qr_code"),
+    "qr_code_base64": pix.get("qr_code_base64")
+}
 from fastapi import FastAPI
 import mercadopago
 import os
